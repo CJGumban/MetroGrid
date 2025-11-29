@@ -30,52 +30,63 @@ import com.example.compose.MetroGridTheme
 fun ErrorDialog(
     message: String,
     buttonText: String,
-    onDismiss: ()-> Unit = {},
-){
+    onDismiss: () -> Unit = {},
+) {
     Dialog(
         properties = DialogProperties(usePlatformDefaultWidth = false),
         onDismissRequest = {}
-    ){
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally ,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .shadow(2.dp)
-                .padding(16.dp)
+
                 .fillMaxWidth()
                 .background(
                     color = MaterialTheme.colorScheme.primaryContainer,
                     shape = RoundedCornerShape(16.dp)
-                ).padding(horizontal = 16.dp, vertical = 24.dp),
+                )
+                .padding(16.dp)
+                .padding(horizontal = 16.dp, vertical = 24.dp),
         ) {
-            Text(text = message,
+            Text(
+                text = message,
                 style = TextStyle(
                     fontSize = 16.sp,
                     lineHeight = 24.sp,
                     textAlign = TextAlign.Center,
-                    color =  MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface
 
                 ),
-                modifier = Modifier.fillMaxWidth().padding(12.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp)
             )
 
-            TextButton (onClick = {onDismiss()},
+            TextButton(
+                onClick = { onDismiss() },
 
-                colors = ButtonDefaults.textButtonColors().copy(containerColor = MaterialTheme.colorScheme.onError),
-                shape = RoundedCornerShape(24.dp)){
-                    Text(buttonText, color =MaterialTheme.colorScheme.primary, modifier = Modifier.padding(horizontal = 16.dp) )
-                }
-
-
+                colors = ButtonDefaults.textButtonColors()
+                    .copy(containerColor = MaterialTheme.colorScheme.onError),
+                shape = RoundedCornerShape(24.dp)
+            ) {
+                Text(
+                    buttonText,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
             }
+
+
         }
     }
+}
 
 
 @Composable
-@Preview
+@Preview(showBackground = true, showSystemUi = true, backgroundColor = 0xFFFFFFFF)
 fun ErrorDialogPreview(
-){
+) {
     MetroGridTheme {
         ErrorDialog(
             "No Internet Connetion",

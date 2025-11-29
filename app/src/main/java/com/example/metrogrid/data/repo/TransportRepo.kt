@@ -35,22 +35,7 @@ class TransportRepo @Inject constructor(
     private val TransportApi: TransportService,
     private val TransportDb: TransportDb
 ) : ITransportRepo {
-    /*    override fun getPagedStation(query: String): Flow<PagingData<Station>> {
-            return Pager(
-                config = PagingConfig(
-                    pageSize = 15,
-                    prefetchDistance = 15,
-                    enablePlaceholders = true,
-                    initialLoadSize = 15),
-                initialKey = 1,
-                ){
-                StationSearchPagingSource(
-                    query = query,
-                    transportDao = TransportDb.transportDao(),
-                    transportService = TransportApi
-                )
-            }.flow
-        }*/
+
     override fun getStationDepartures(id: String): Flow<DepartureResult> = flow {
         emit(TransportApi.getDepartures(id).process())
     }
@@ -63,16 +48,6 @@ class TransportRepo @Inject constructor(
         flow {
             val data = TransportApi.getAllStations("a", 15).process()
             emit(data)
-
-
-            /* try {
-                            val data = TransportApi.getAllStations().process()
-                            emit(Response.Success(data))
-                        } catch (e: IOException) {
-                            emit (Response.Error("${e.message.toString()}"))
-                        } catch (e: HttpException) {
-                            emit( Response.Error(""))
-                        }*/
         }
 
     @OptIn(ExperimentalPagingApi::class)
